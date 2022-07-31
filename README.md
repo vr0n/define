@@ -54,7 +54,23 @@ count two words as one word. This may be how all dictionaries do it -- I haven't
 check prior to this project; but this is a limitation all the same.
 
 # Other Notes
-This code is currently broken. There is a limitation (an intentional limitation, of course) in Rust
-concerning using Strings with non-utf8 values. Since the GCIDE handles more than utf8, you will
-frequently find this code errors out. There are a couple of ways to solve this, and I am 
-currently evaluating which is best. So, this problem should be gone fairly soon.
+*This* repository works, but the code itself is currently broken.
+
+There is a limitation (an intentional limitation, of course) in Rust concerning using Strings with
+non-utf8 values. If you download the latest GCIDE file from GNU's FTP server, you will find that
+it has three instances of non-utf8 characters that cause this code to error out.
+
+The definitions that contain the offending text are for the words:
+- Black Friday
+- Tamerlane
+- Uredienales
+
+I found these rather quickly doing a binary search until the code worked as expected and modified
+the `gcide.dict` file in this repository so the program works as expected (For reasons mentioned
+above, we can't even define "Black Friday" either way, so removing it entirely is also an option).
+
+However, in the long run, this problem should be addressed in the code itself so the dictionary
+can get updated arbitrarily. There are a couple ways to do this. One is by searching for bytes
+instead of String matches. The other is to open the file in a way that we render utf8 with the 
+option to drop non-utf8 characters (lossy). I am not sure which I will go with yet, but this
+should be addressed soon.
