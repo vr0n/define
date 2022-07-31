@@ -70,7 +70,29 @@ the `gcide.dict` file in this repository so the program works as expected (For r
 above, we can't even define "Black Friday" either way, so removing it entirely is also an option).
 
 However, in the long run, this problem should be addressed in the code itself so the dictionary
-can get updated arbitrarily. There are a couple ways to do this. One is by searching for bytes
+can get updated arbitrarily. There are a couple of ways to do this. One is by searching for bytes
 instead of String matches. The other is to open the file in a way that we render utf8 with the 
-option to drop non-utf8 characters (lossy). I am not sure which I will go with yet, but this
-should be addressed soon.
+option to drop non-utf8 characters (lossy). I am not sure which I will go with yet, but I would
+like to go with whatever method `sed` uses. This project was a great intro to Rust synatx, however
+it has not proven to be more efficient than the shell script.
+
+The last word in the dictionary is "Zythum". Here are the time results when searching for "Zythum"
+with the Rust version of `define`:
+```
+real    0m1.119s
+user    0m1.111s
+sys     0m0.008s
+```
+
+When we search for "Zythum" with the shell script, we see:
+```
+real    0m0.075s
+user    0m0.068s
+sys     0m0.008s
+```
+
+If we only look at the `real` time here, the shell script is finding and returning the definition
+about 15x faster than the Rust code.
+
+Obviously, this isn't a limitation of Rust so much as the way I implemented the search. This seems
+like a simple fix to the code, so the solution should be implemented soon.
