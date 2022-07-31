@@ -46,7 +46,6 @@ fn main() -> Result<(), Box<dyn std::error::Error + 'static>> {
 
     if line_start.is_match(line_result) {
       if word_match.is_match(&line_result.to_lowercase()) {
-        println!("qdsfasdf");
         println!("{}", line_result);
         found = true;
       }
