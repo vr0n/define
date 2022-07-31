@@ -42,6 +42,17 @@ of varying value simply to define what the word "Apple" means; so, the self impo
 here is to just get the first definition and hope for the best. Ironically, the GCIDE's 
 thoroughness is a limiting factor in using it effectively in a tool such as this.
 
+Another self imposed limitation is that definitions for "words" that are made up of two or more
+words separated by a space are not supported. As an example, the GCIDE contains the definition
+for the "word" "black market". You can not use `define` to search for "black market" because
+of the space, and the GCIDE does not include a full definition for the compound word
+"black-market" (it does appear in the GCIDE, but it is considered an adjective while "black market"
+is the noun which, presumably, would be the definition most people cared about).
+
+I figured this was an acceptable limitation, though, it is an odd "feature" of the GCIDE to
+count two words as one word. This may be how all dictionaries do it -- I haven't thought to
+check prior to this project; but this is a limitation all the same.
+
 # Other Notes
 This code is currently broken. There is a limitation (an intentional limitation, of course) in Rust
 concerning using Strings with non-utf8 values. Since the GCIDE handles more than utf8, you will
