@@ -5,7 +5,7 @@ I very frequently (at least a couple of times a day) find myself running to Goog
 define: <some word>
 ```
 
-If you don't know, when you type this into Google, it just spits up the Merriam Webster 
+If you don't know: when you type this into Google, it just spits up the Merriam Webster 
 definition of the word instead of a matching search result. This is incredibly convenient,
 but not as convenient as doing it in a terminal.
 
