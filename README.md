@@ -18,6 +18,13 @@ The logic of the code is extremely simple:
 
 That really is all this does.
 
+There is a file named `define.sh` in the root directory which is a shell script using `sed`
+to demonstrate what the Rust code is intended to do (if you don't feel like compiling).
+
+If everything is working as expected, `./define.sh apple` and `./define apple` should have
+the same output (with one minor exception, which is that the shell script prints a blank
+line after its definition, while the Rust code should not).
+
 # Limitations
 The GCIDE is poorly formatted for this task (you can look at the bizarre regex logic in the
 code to see what I mean); however, I couldn't find any other text-based, open source dictionary
