@@ -1,6 +1,6 @@
 # The Why
 This is an extremely simple project to get acquainted with Rust and to solve a simple problem I have:
-I very frequently (at least a couple times a day) find myself running to Google to type
+I very frequently (at least a couple of times a day) find myself running to Google to type
 ```
 define: <some word>
 ```
