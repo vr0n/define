@@ -11,10 +11,10 @@ but not as convenient as doing it in a terminal.
 
 # The What
 The logic of the code is extremely simple:
-1. Take a single word to define as command line argument
+1. Take a single word to define as a command line argument
 2. Load the GCIDE (GNU Collaborative International Dictionary of English)
 3. Iterate over the dictionary line-by-line until we find the matching word
-4. Print the output from the dictionary to the next newline
+4. Print lines from the dictionary until the next blank line (In GCIDE formatting, this just means print the first definition given)
 
 That really is all this does.
 
