@@ -6,3 +6,6 @@ clean:
 
 update:
 	cargo update
+
+install:
+	sudo cp -i ./define /usr/local/bin/define
