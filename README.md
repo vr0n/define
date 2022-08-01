@@ -96,3 +96,7 @@ about 15x faster than the Rust code.
 
 Obviously, this isn't a limitation of Rust so much as the way I implemented the search. This seems
 like a simple fix to the code, so the solution should be implemented soon.
+
+Another note of importance is that I am currently working through a solution for identifying the
+file path for the dictionary. Currently, the plan is to move the dictionary to ~/.config/define
+and load it as an absolute path. That work is in progress.

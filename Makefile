@@ -8,4 +8,6 @@ update:
 	cargo update
 
 install:
+	mkdir -p ~/.config/define
+	cp ./gcide.dict ~/.config/define/gcide.dict
 	sudo cp -i ./define /usr/local/bin/define

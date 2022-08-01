@@ -1,6 +1,9 @@
+use std::fs;
 use std::fs::File;
 use std::io::{prelude::*, BufReader}; // prelude::* is needed for lines() to work
 use std::env;
+use std::path::PathBuf;
+use shellexpand::tilde;
 
 use regex::Regex;
 
@@ -29,7 +32,10 @@ fn main() -> Result<(), Box<dyn std::error::Error + 'static>> {
   let line_start = Regex::new("^[a-zA-Z]").unwrap();
   let word_match = Regex::new(&rx).unwrap();
 
-  let dict = File::open("./gcide.dict").expect("Could not open file");
+  //let mut home_dir_path = tilde("~/.config/define/gcide.dict");
+  let home_dir_path = "/home/vr0n/.config/define/gcide.dict";
+  let dict_path = PathBuf::from(home_dir_path);
+  let dict = File::open(fs::canonicalize(&dict_path)?).expect("Could not open file");
   let contents = BufReader::new(dict);
 
   let mut found = false;
