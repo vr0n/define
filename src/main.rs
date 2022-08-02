@@ -7,13 +7,17 @@ use shellexpand::tilde;
 
 use regex::Regex;
 
-fn help(func: &str) {
+fn logo() {
   println!("╔═══╗     ╔═╗          ");
   println!("╚╗╔╗║     ║╔╝          ");
   println!(" ║║║║╔══╗╔╝╚╗╔╗╔═╗ ╔══╗");
   println!(" ║║║║║╔╗║╚╗╔╝╠╣║╔╗╗║╔╗║");
   println!("╔╝╚╝║║║═╣ ║║ ║║║║║║║║═╣");
   println!("╚═══╝╚══╝ ╚╝ ╚╝╚╝╚╝╚══╝");
+}
+
+fn help(func: &str) {
+  logo();
   println!("\nUsage: {} <word to define>", func);
 }
 
@@ -39,6 +43,7 @@ fn main() -> Result<(), Box<dyn std::error::Error + 'static>> {
   let contents = BufReader::new(dict);
 
   let mut found = false;
+  logo();
   for line in contents.lines() {
     let line_result = &line?;
 
