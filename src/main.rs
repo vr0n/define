@@ -31,17 +31,13 @@ fn main() -> Result<(), Box<dyn std::error::Error + 'static>> {
   let pre = "^(";
   let post = ") ";
   let rx = format!("{}{}{}", pre, word, post);
-
-  let line_start = Regex::new("^[a-zA-Z]").unwrap();
   let word_match = Regex::new(&rx).unwrap();
 
-  let dict_cow = tilde("~/.config/define/gcide.dict");
-  let dict_path = PathBuf::from(dict_cow.as_ref()); // must explicitly deref cow
+  let dict_path = PathBuf::from(tilde("~/.config/define/gcide.dict").as_ref()); // cow as ref
   let dict = File::open(dict_path).expect("Could not open file");
   let contents = BufReader::new(dict);
 
   let mut found = false;
-  logo();
   for line in contents.lines() {
     let line_result = &line?;
 
@@ -53,11 +49,10 @@ fn main() -> Result<(), Box<dyn std::error::Error + 'static>> {
       }
     }
 
-    if line_start.is_match(line_result) {
-      if word_match.is_match(&line_result.to_lowercase()) {
-        println!("{}", line_result);
-        found = true;
-      }
+    if word_match.is_match(&line_result.to_lowercase()) {
+      logo();
+      println!("{}", line_result);
+      found = true;
     }
   }
 

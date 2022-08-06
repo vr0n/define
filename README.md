@@ -79,9 +79,9 @@ it has not proven to be more efficient than the shell script.
 The last word in the dictionary is "Zythum". Here are the time results when searching for "Zythum"
 with the Rust version of `define`:
 ```
-real    0m1.119s
-user    0m1.111s
-sys     0m0.008s
+real    0m1.059s
+user    0m1.047s
+sys     0m0.012s
 ```
 
 When we search for "Zythum" with the shell script, we see:
@@ -92,7 +92,7 @@ sys     0m0.008s
 ```
 
 If we only look at the `real` time here, the shell script is finding and returning the definition
-about 15x faster than the Rust code.
+about 14x faster than the Rust code.
 
 Obviously, this isn't a limitation of Rust so much as the way I implemented the search. This seems
 like a simple fix to the code, so the solution should be implemented soon.
