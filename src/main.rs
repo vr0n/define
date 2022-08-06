@@ -1,11 +1,10 @@
-use std::fs;
+use std::env;
 use std::fs::File;
 use std::io::{prelude::*, BufReader}; // prelude::* is needed for lines() to work
-use std::env;
 use std::path::PathBuf;
-use shellexpand::tilde;
 
 use regex::Regex;
+use shellexpand::tilde;
 
 fn logo() {
   println!("╔═══╗     ╔═╗          ");
@@ -36,10 +35,9 @@ fn main() -> Result<(), Box<dyn std::error::Error + 'static>> {
   let line_start = Regex::new("^[a-zA-Z]").unwrap();
   let word_match = Regex::new(&rx).unwrap();
 
-  //let mut home_dir_path = tilde("~/.config/define/gcide.dict");
-  let home_dir_path = "/home/vr0n/.config/define/gcide.dict";
-  let dict_path = PathBuf::from(home_dir_path);
-  let dict = File::open(fs::canonicalize(&dict_path)?).expect("Could not open file");
+  let dict_cow = tilde("~/.config/define/gcide.dict");
+  let dict_path = PathBuf::from(dict_cow.as_ref()); // must explicitly deref cow
+  let dict = File::open(dict_path).expect("Could not open file");
   let contents = BufReader::new(dict);
 
   let mut found = false;
@@ -62,6 +60,8 @@ fn main() -> Result<(), Box<dyn std::error::Error + 'static>> {
       }
     }
   }
+
+  println!("{} not found in dictionary", &args[1]);
 
   Ok(())
 }
