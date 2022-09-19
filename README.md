@@ -56,7 +56,7 @@ check prior to this project; but this is a limitation all the same.
 # Other Notes
 *This* repository works, but the code itself is currently broken.
 
-There is a limitation (an intentional limitation, of course) in Rust concerning using Strings with
+There is an intentional limitation in Rust concerning using Strings with
 non-utf8 values. If you download the latest GCIDE file from GNU's FTP server, you will find that
 it has three instances of non-utf8 characters that cause this code to error out.
 
@@ -69,35 +69,4 @@ I found these rather quickly doing a binary search until the code worked as expe
 the `gcide.dict` file in this repository so the program works as expected (For reasons mentioned
 above, we can't even define "Black Friday" either way, so removing it entirely is also an option).
 
-However, in the long run, this problem should be addressed in the code itself so the dictionary
-can get updated arbitrarily. There are a couple of ways to do this. One is by searching for bytes
-instead of String matches. The other is to open the file in a way that we render utf8 with the 
-option to drop non-utf8 characters (lossy). I am not sure which I will go with yet, but I would
-like to go with whatever method `sed` uses. This project was a great intro to Rust synatx, however
-it has not proven to be more efficient than the shell script.
-
-The last word in the dictionary is "Zythum". Here are the time results when searching for "Zythum"
-with the Rust version of `define`:
-```
-real    0m1.059s
-user    0m1.047s
-sys     0m0.012s
-```
-
-When we search for "Zythum" with the shell script, we see:
-```
-real    0m0.075s
-user    0m0.068s
-sys     0m0.008s
-```
-
-If we only look at the `real` time here, the shell script is finding and returning the definition
-about 14x faster than the Rust code.
-
-Obviously, this isn't a limitation of Rust so much as the way I implemented the search. This seems
-like a simple fix to the code, so the solution should be implemented soon.
-
-~~Another note of importance is that I am currently working through a solution for identifying the~~
-~~file path for the dictionary. Currently, the plan is to move the dictionary to ~/.config/define~~
-~~and load it as an absolute path. That work is in progress.~~ This has now been resolved. The
-dictionary is copied to '~/.config/define/gcide.dict' and read from there.
+Everything has been updated and should work as expected with improved performance.
