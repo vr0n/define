@@ -1,5 +1,5 @@
 define:
-	cargo build && cp ./target/debug/define ./define
+	cargo build --release && cp ./target/release/define ./define
 
 clean:
 	rm -rf ./define
