@@ -3,7 +3,7 @@ use std::fs::File;
 use std::io::{prelude::*, BufReader}; // prelude::* is needed for lines() to work
 use std::path::PathBuf;
 
-use regex::Regex;
+use regex::RegexBuilder;
 use shellexpand::tilde;
 
 fn logo() {
@@ -27,11 +27,8 @@ fn main() -> Result<(), Box<dyn std::error::Error + 'static>> {
     std::process::exit(1);
   }
 
-  let word = &args[1].to_lowercase();
-  let pre = "^(";
-  let post = ") ";
-  let rx = format!("{}{}{}", pre, word, post);
-  let word_match = Regex::new(&rx).unwrap();
+  let rx = format!("^{} ", &args[1]);
+  let word_match = RegexBuilder::new(&rx).case_insensitive(true).build()?;
 
   let dict_path = PathBuf::from(tilde("~/.config/define/gcide.dict").as_ref()); // cow as ref
   let dict = File::open(dict_path).expect("Could not open file");
@@ -49,7 +46,7 @@ fn main() -> Result<(), Box<dyn std::error::Error + 'static>> {
       }
     }
 
-    if word_match.is_match(&line_result.to_lowercase()) {
+    if word_match.is_match(&line_result) {
       logo();
       println!("{}", line_result);
       found = true;
