@@ -27,8 +27,8 @@ fn main() -> Result<(), Box<dyn std::error::Error + 'static>> {
     help(&args[0]);
     std::process::exit(1);
   } else if args.len() == 1 {
-    stdin().read_line(&mut word).expect("READ!");
-    word.pop();
+    stdin().read_line(&mut word).expect("CAN'T READ!");
+    word.pop(); // Strip that newline, bapa
   } else {
     word = args[1].to_string();
   }
