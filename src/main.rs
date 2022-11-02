@@ -1,6 +1,6 @@
 use std::env;
 use std::fs::File;
-use std::io::{prelude::*, BufReader}; // prelude::* is needed for lines() to work
+use std::io::{stdin,prelude::*,BufReader}; // prelude::* is needed for lines() to work
 use std::path::PathBuf;
 
 use regex::RegexBuilder;
@@ -16,18 +16,24 @@ fn logo() {
 }
 
 fn help(func: &str) {
-  logo();
   println!("\nUsage: {} <word to define>", func);
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error + 'static>> {
   let args: Vec<String> = env::args().collect();
-  if args.len() != 2 {
+  let mut word = String::new();
+  logo();
+  if args.len() > 2 {
     help(&args[0]);
     std::process::exit(1);
+  } else if args.len() == 1 {
+    stdin().read_line(&mut word).expect("READ!");
+    word.pop();
+  } else {
+    word = args[1].to_string();
   }
 
-  let rx = format!("^{} ", &args[1]);
+  let rx = format!("^{} ", word);
   let word_match = RegexBuilder::new(&rx).case_insensitive(true).build()?;
 
   let dict_path = PathBuf::from(tilde("~/.config/define/gcide.dict").as_ref()); // cow as ref
@@ -47,13 +53,12 @@ fn main() -> Result<(), Box<dyn std::error::Error + 'static>> {
     }
 
     if word_match.is_match(&line_result) {
-      logo();
       println!("{}", line_result);
       found = true;
     }
   }
 
-  println!("{} not found in dictionary", &args[1]);
+  println!("{} not found in dictionary", word);
 
   Ok(())
 }
